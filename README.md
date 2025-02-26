@@ -87,7 +87,7 @@ By default, Proxy Lite will point to an endpoint set up on HuggingFace spaces.
 We recommend hosting your own endpoint with vLLM, you can use the following command:
 
 ```bash
-vllm serve --model convergence-ai/proxy-lite-3b \
+vllm serve convergence-ai/proxy-lite-3b \
     --trust-remote-code \
     --enable-auto-tool-choice \
     --tool-call-parser hermes \
