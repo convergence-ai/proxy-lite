@@ -4,11 +4,11 @@ import datetime
 import json
 import os
 import uuid
+from enum import Enum
 from pathlib import Path
 from typing import Any, ClassVar, Literal, Optional, Self, Union
-from enum import Enum
 
-from pydantic import BaseModel, Field, model_validator, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from proxy_lite.environments import EnvironmentConfigTypes
 from proxy_lite.environments.environment_base import Action, Observation
@@ -97,9 +97,7 @@ class Run(BaseModel):
         if isinstance(data.get("created_at"), str):
             data["created_at"] = datetime.datetime.fromisoformat(data["created_at"])
         if data.get("terminated_at") and isinstance(data["terminated_at"], str):
-            data["terminated_at"] = datetime.datetime.fromisoformat(
-                data["terminated_at"]
-            )
+            data["terminated_at"] = datetime.datetime.fromisoformat(data["terminated_at"])
 
         # Convert history items to their proper types
         if "history" in data:
@@ -271,9 +269,7 @@ class DataRecorder:
         """
         return Run.load(run_id, base_path=self.storage_dir.parent)
 
-    async def list_runs(
-        self, limit: int = 100, status: Optional[RunStatus] = None
-    ) -> list[Run]:
+    async def list_runs(self, limit: int = 100, status: Optional[RunStatus] = None) -> list[Run]:
         """
         List runs, optionally filtered by status.
 
